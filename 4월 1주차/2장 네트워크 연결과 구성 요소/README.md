@@ -13,7 +13,7 @@
 패킷이 정확한 방향으로 전송되도록 최적의 경로로 패킷을 포워딩해줌
 
 ### 네트워크를 크기에 따른 종류와 이에 대해 간략히 설명해주세요
-LAN(Local Area Network) - 홈 네트워크용과 사무실 네트워크처럼 비교적 소규모의 네트워크
-MAN(Metro Area Network) - 한 도시 정도를 연결하고 관리하는 네트워크   
-WAN(Wide Area Network) - 멀리 떨어진 LAN을 연결해주는 네트워크   
+LAN(Local Area Network) - 홈 네트워크용과 사무실 네트워크처럼 비교적 소규모의 네트워크  
+MAN(Metro Area Network) - 한 도시 정도를 연결하고 관리하는 네트워크     
+WAN(Wide Area Network) - 멀리 떨어진 LAN을 연결해주는 네트워크     
 
