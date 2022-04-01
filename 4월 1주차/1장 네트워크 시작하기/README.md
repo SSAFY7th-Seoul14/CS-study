@@ -19,7 +19,7 @@ TCP/IP는 OSI의 Upper Layer 3개(5,6,7)를 하나의 애플리케이션 계층�
 
 ### OSI 7계층 각각이 중점을 둔 부분, 역할 등에 대해 설명해주세요  
 1계층 (Physical) - 전기 신호 전달  
-2계층 (Data Link) - 물리적 주소(MAC) 통신  
+2계층 (Data Link) - 물리적 주소(MAC) 통신  , 오류제어 (패리티비트, CRC, CheckSUm 등을 통해)
 3계층 (Network) - IP등의 논리적 주소  
 4계층 (Transport) - TCP/UDP를 통해 데이터가 정상적으로 잘 보내지도록 확인  
 5계층 (Session) - 프로세스 연결 관리  
