@@ -9,6 +9,10 @@
 > [5장 라우터/L3 스위치: 3계층 장비](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%202%EC%A3%BC%EC%B0%A8/5%EC%9E%A5%20%EB%9D%BC%EC%9A%B0%ED%84%B0%7CL3%20%EC%8A%A4%EC%9C%84%EC%B9%98:%203%EA%B3%84%EC%B8%B5%20%EC%9E%A5%EB%B9%84)  
 > [6장 로드 밸런서/방화벽: 4계층 장비(세션 장비)](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%202%EC%A3%BC%EC%B0%A8/6%EC%9E%A5%20%EB%A1%9C%EB%93%9C%20%EB%B0%B8%EB%9F%B0%EC%84%9C%7C%EB%B0%A9%ED%99%94%EB%B2%BD:%204%EA%B3%84%EC%B8%B5%20%EC%9E%A5%EB%B9%84(%EC%84%B8%EC%85%98%20%EC%9E%A5%EB%B9%84))
 
+- 4월 3주차
+>[7장 통신을 도와주는 네트워크 주요 기술](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%203%EC%A3%BC%EC%B0%A8/7%EC%9E%A5%20%ED%86%B5%EC%8B%A0%EC%9D%84%20%EB%8F%84%EC%99%80%EC%A3%BC%EB%8A%94%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EC%A3%BC%EC%9A%94%20%EA%B8%B0%EC%88%A0)  
+> 1~6장 복습은 기존 질문에 추가
+
 ---
 
 # 💻 CS-study
@@ -32,3 +36,12 @@
 - 4월 8일 (금) 간단 회의록  
 돌아오는 주 범위는 1\~6장 복습 + 7장 준비  
 1\~6장은 세세한 질문보다는 굵직굵직해 보이는 것들 위주로 준비해주시고, 7장은 평소하던대로 준비
+- 4월 15일 (금) 간단 회의  
+돌아오는 주 22일 진도 카톡 투표 진행
+  1. 7, 8, 9장
+  2. 9, 11장
+  3. 7, 9, 11장
+
+8장 10장은 명령어, 설정 등 실습 위주라 패스.  
+7장을 포함하는 의견 같은 경우는 금일 빠진 인원이 거의 절반. 하지만 DNS는 중요하기에 다시 또 하자는 의견.
+12장까지는 ..? 너무 많다😥
