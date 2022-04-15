@@ -16,36 +16,27 @@ NAT 테이블을 통해 공인 IP로 변환해서 외부와 통신할 수 있다
 
 ### DHCP 릴레이 과정을 설명해주세요
 
-1. DHCP Discover(클라이언트 → 릴레이 에이전트)
-    
+1. DHCP Discover(클라이언트 → 릴레이 에이전트)  
     브로드 캐스트
-    
-2. DHCP Discover(릴레이 에이전트 → DHCP 서버)
-    
-    출발지(릴레이 에이전트 IP), 목적지(DHCP 서버 IP) 재작성. 유니캐스트.
-    
+ 
+2. DHCP Discover(릴레이 에이전트 → DHCP 서버)  
+    출발지(릴레이 에이전트 IP), 목적지(DHCP 서버 IP) 재작성. 유니캐스트.  
     출발지에 쓰이는 IP는 서버 방향 인터페이스 IP, DHCP 메시지 내 IP는 클라이언트 내부 인터페이스 IP 주소. 즉, 둘이 다르다.
     
-3. DHCP Offer(DHCP 서버 → 릴레이 에이전트)
-    
+3. DHCP Offer(DHCP 서버 → 릴레이 에이전트)  
     역시 유니캐스트
     
-4. DHCP Offer(릴레이 에이전트 → 클라이언트)
-    
+4. DHCP Offer(릴레이 에이전트 → 클라이언트)  
     DHCP Server Indentifier만 실제 DHCP 서버 IP주소에서 `에이전트 외부 인터페이스 IP`로 변경
     
-5. DHCP Request(클라이언트 → 릴레이 에이전트)
-    
+5. DHCP Request(클라이언트 → 릴레이 에이전트)  
     브로드캐스트
     
-6. DHCP Request(릴레이 에이전트 → DHCP 서버)
-    
+6. DHCP Request(릴레이 에이전트 → DHCP 서버)  
     유니캐스트
     
-7. DHCP ACK(DHCP 서버 → 릴레이 에이전트)
-    
+7. DHCP ACK(DHCP 서버 → 릴레이 에이전트)  
     유니캐스트
     
-8. DHCP ACK(릴레이 에이전트 → 클라이언트)
-    
+8. DHCP ACK(릴레이 에이전트 → 클라이언트)  
     브로드캐스트
