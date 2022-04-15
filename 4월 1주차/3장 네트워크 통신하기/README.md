@@ -50,9 +50,70 @@ TCP는 전송순서보장(Seq no) / UDP는 보장 x
 3) 클라이언트가 ACK(a+1), SYN(b) 잘 받았으면 응답으로 ACK(b+1) 패킷 보내면서 연결이 성립됨  
 
 ### TCP 4-way handshake 설명 
-4-way handshake는 연결을 종료하기 위한 작업
-이를 하지 않으면, 한쪽에서는 연결이 종료됐는지 알지못해 무한대기 상태에 빠져 데드락 발생가능성 존재하므로, 매우중 요한 작업
+4-way handshake는 연결(세션)을 종료하기 위한 작업
+이를 하지 않으면, 한쪽에서는 연결이 종료됐는지 알지못해 무한대기 상태에 빠져 데드락 발생가능성 존재하므로, 매우 중요한 작업
 
+1) 클라이언트가 연결 종료하겠다는 FIN 플래그 전송. 클라이언트는 FIN-WAIT 상태
+2) 서버가 FIN 플래그 받으면, 일단 확인했다는 ACK 전송 후 자신의 통신이 끝날 때까지 대기. 서버는 CLOSE_WAIT 상태
+3) 서버가 연결 종료 준비가 되면, 연결해지 준비가 되었다는 걸 알리기 위해 클라이언트에게 FIN 플래그 전송. 서버의 상태는 LAST_WAIT
+4) 클라이언트는 해지준비가 되었다는 ACK를 확인했다는 메시지 보냄. 클라이언트 상태가 FIN-WAIT에서 TIME-WAIT으로 변경됨
+
+### TCP의 신뢰성 보장 방법 - 흐름제어 (Stop and wait, Sliding Window)
+**송신(호스트) <-> 수신(호스트) **   
+`송신측과 수신측 사이의 데이터 처리 속도 차이(흐름)`를 제어하기 위한 기법으로 흐름제어를 하여 수신자의 버퍼 오버플로우를 방지
+>1. Stop and Wait   
+
+매번 전송한 패킷에 대해 확인 응답(ACK)을 받으면 다음 패킷 전송하는 방법. 비효율적임
+![https://velog.velcdn.com/images/bobae1998/post/f091f43a-421e-4c72-a7ec-dc637d3788ca/image.png](https://velog.velcdn.com/images/bobae1998/post/f091f43a-421e-4c72-a7ec-dc637d3788ca/image.png)
+>2. Sliding Window   
+
+수신측에서 설정한 윈도우 사이즈만큼 송신 측에서 확인 응답(ACK) 없이 패킷을 전송할 수 있게 하여 `데이터 흐름을 동적으로 조절`하는 제어 기법. Stop and Wait의 비효율성을 개선한 기법. 윈도우에 포함된 패킷을 계속 전송하고, 수신 측으로부터 ACK을 받으면 윈도우를 옆으로 옮겨 다음 패킷들을 전송
+![https://velog.velcdn.com/images/bobae1998/post/42a45dd7-3333-41c6-b142-34ace6e9dada/image.png](https://velog.velcdn.com/images/bobae1998/post/42a45dd7-3333-41c6-b142-34ace6e9dada/image.png)
+
+### TCP의 신뢰성 보장 방법 - 혼잡제어 (AIMD, Slow start, fast retransmit, fast recovery)
+**송신(호스트) <-> 라우터(네트워크) **  
+혼잡제어는 `송신측의 데이터 전달과 네트워크의 데이터 처리 속도 차이`를 해결하기 위한 기법. 네트워크 혼잡을 피하기 위해 송신측에서 데이터의 전송 속도를 강제로 줄이게 됨.
+
+>1. AIMD(Additive Increase Multivative Decrease)   
+
+패킷을 하나씩 보내고, 문제 없이 도착하면 윈도우 크기를 1씩 증가시키며 전송. 만약 실패하면 윈도우 크기 `절반`으로 줄인다. 제대로 된 속도로 통신하기 까지 시간이 오래 걸리고, 네트워크가 혼잡해지고 나서야 대역폭을 줄인다는 단점.
+![https://velog.velcdn.com/images/bobae1998/post/07f0cf29-8a5f-48f8-bf48-2c0c708c0104/image.png](https://velog.velcdn.com/images/bobae1998/post/07f0cf29-8a5f-48f8-bf48-2c0c708c0104/image.png)
+> 2. Slow start(느린 시작)
+
+윈도우의 크기를 1, 2, 4, 8...과 같이 지수적으로 증가시키다 혼잡이 감지되면 윈도우 크기를 1로 줄이는 방식. 보낸 데이터의 ACK가 도착할 때마다 윈도우 크기를 지수적으로 증가시키기 때문에 초반엔 느리게 증가할지라도 시간이 지날수록 윈도우 크기가 빨리 증가한다는 장점이 있다.
+![https://velog.velcdn.com/images/bobae1998/post/834ab99a-b1d0-46cc-b459-23eab50844ac/image.png](https://velog.velcdn.com/images/bobae1998/post/834ab99a-b1d0-46cc-b459-23eab50844ac/image.png)
+> 3. fast retransmit(빠른 재전송)
+
+TCP의 혼잡 조절에 추가된 정책으로 수신측에서 먼저 도착해야할 패킷이 아닌 그 다음 패킷이 도착한 경우에도 ACK 패킷을 송신측으로 보낸다. 
+
+
+예를 들어 1, 2, 3, 4,.. 번의 데이터가 순서대로 와야 하는데 실제론 2, 3 다음에 5번이 왔다. 이런 상황에서 수신측은 순서대로 잘 도착한 마지막 패킷의 다음 순번을 ACK 패킷에 실어서 보낸다. 그리고 이런 중복 ACK를 3개 받으면 재전송이 이루어진다.
+
+송신측은 자신이 설정한 타임아웃 시간이 지나지 않았어도 바로 해당 패킷을 재전송할 수 있기에 빠른 전송률을 유지할 수 있다.
+
+송신측에서 설정한 타임아웃까지 ACK를 받지 못하면 혼잡이 발생한 것으로 판단하여 혼잡 회피를 한다.
+> 4. fast recovery(빠른 회복)
+
+혼잡 상태가 되면 윈도우 크기를 1로 줄이지 않고 반으로 줄이고 선형증가시키는 방법. 이 방법을 적용하면 혼잡 상황을 한 번 겪고 나서부터는 AIMD 방식으로 동작함.
+
+
+### TCP의 신뢰성 보장 방법 - 오류제어 (Stop and Wait ARQ, GBn ARQ, SR ARQ)
+오류 검출과 재전송을 포함한다.   
+ARQ : 신뢰성 있는 데이터 전달을 위해 재전송을 기반으로 한 에러 제어 방식
+> 1. Stop and Wait ARQ
+
+전송측은 수신측에서 보내준 ACK를 받기 전까지 프레임의 복사본을 유지함. 식별을 위해 데이터와 ACK는 각각 0, 1 번호를 부여한다. 수신측이 데이터를 받지 못했을 경우, 송신측에게 NAK를 보내고 NAK를 받은 송신측은 데이터를 재전송한다.
+
+>2. Go Back N ARQ (GBn ARQ)
+
+전송된 프레임이 손상, 분실된 경우 그리고 ACK 프레임의 손실로 인해 타임아웃이 발생한 경우, `확인된 마지막 프레임 이후로 모든 프레임을 재전송`한다.
+![https://velog.velcdn.com/images/bobae1998/post/12cda25f-66fb-42b0-8722-d732d29b8f2f/image.png](https://velog.velcdn.com/images/bobae1998/post/12cda25f-66fb-42b0-8722-d732d29b8f2f/image.png)
+> 3. Selective Reject (SR) ARQ
+
+GBn의 확인된 마지막 프레임 이후 모든 프레임을 재전송하는 것의 단점을 보완한 기법으로 SR은 손상되거나 손실된 프레임만 재전송한다. 그렇기에 별도의 데이터 재정렬이 필요하며, 버퍼도 필요로 하고 SR에 비해 비용이 든다.
+
+참고: [흐름제어 & 혼잡제어 & 오류제어](https://github.com/GimunLee/tech-refrigerator/blob/master/Network/%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4%20%26%20%ED%98%BC%EC%9E%A1%EC%A0%9C%EC%96%B4%20%26%20%EC%98%A4%EB%A5%98%EC%A0%9C%EC%96%B4.md)   
+[TCP 혼잡 제어](https://velog.io/@mu1616/TCPIP-%ED%98%BC%EC%9E%A1-%EC%A0%9C%EC%96%B4)
 ### 슬라이딩 윈도우란?
 한 번에 데이터를 받을 수 있는 데이터 크기인 윈도 사이즈를 네트워크 상황에 따라 조절하는 것
 

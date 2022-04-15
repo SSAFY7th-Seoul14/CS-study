@@ -4,6 +4,44 @@
 
 NAT 테이블을 통해 공인 IP로 변환해서 외부와 통신할 수 있다.
 
+### NAT/PAT 동작방식
+1. 사설 네트워크에서 인터넷으로 요청 전송 시 출발지 IP 주소 변환
+2. 라우터는 변환된 IP 주소 쌍을 NAT 테이블에 저장
+3. 웹 서버에서 응답 패킷이 라우터로 들어오면 목적지 IP 주소를 NAT 테이블을 참조하여 변환
+
+(PAT는 NAT와 동작 방식이 비슷한데 출발지 IP 주소만 변경하는 것이 아니라 포트도 함께 변환한다. PAT는 출발지에 여러 사용자가 동일한 공인 IP로 변환해야 하기 때문)
+
+### SNAT와 DNAT란?
+NAT가 수행되기 이전의 트래픽이 출발하는 시작 시점으로 구분
+
+SNAT(Source NAT) - 출발지 주소를 변경하는 NAT (사설 → 공인으로 통신할 때 사용, 보안상 사용)
+
+DNAT(Destination NAT) - 도착지 주소를 변경하는 NAT (로드밸런서에서 많이 사용, 대외망과의 네트워크 구성에 DNAT 사용)
+
+### 동적 NAT와 정적 NAT   
+동적 NAT는 출발지나 목적지 중 하나가 IP 풀이어야 하기 때문에 NAT 설정이 1:N, N:1, N:M이고, NAT 테이블은 NAT 수행 시 생성된다. NAT 테이블 타임아웃도 동작한다.
+
+정적 NAT는 출발지와 목적지가 특정 IP로 사전에 정의된 것으로 1:1 NAT이다. NAT 테이블도 사전에 생성되고, NAT 테이블 타임아웃이 필요없다.
+
+### DNS란?
+IP 주소는 사용자가 외우기에 어렵다. 그렇기에 비교적 외우기 쉬운 문자열로 나열된 주소를 도메인 주소라고 하는데 DNS는 이러한 도메인 주소를 IP 주소로 변환하는 역할을 한다. 
+
+### DNS의 동작 방식(웹 브라우저에 www.naver.com을 입력하였을 경우)
+1. 웹 브라우저에 www.naver.com을 입력하면 Local DNS에게 해당 도메인에 대한 IP 주소가 있는지 질의한다. Local DNS가 알고있다면(캐시되어 있다면) IP 주소를 바로 찾아준다.
+2.  Local DNS에 없으면 다른 DNS 서버와 통신 시작한다. 우선 Root DNS 서버에게 www.naver.com 질의
+3. Root DNS로부터 “com 도메인”을 관리하는 TLD(Top-Level Domain) 이름 서버 정보 전달 받음
+4. TLD에 “www.naver.com” 질의
+5. TLD에서 “naver.com” 관리하는 DNS 정보 전달
+6. “naver.com” 도메인을 관리하는 DNS 서버에 “www.naver.com” 호스트 네임에 대한 IP 주소 질의
+7. Local DNS 서버에게 www.naver.com에 대한 IP 주소가 무엇인지 응답
+8. Local DNS는 www.naver.com에 대한 IP 주소를 캐싱하고, IP 주소 정보 전달  
+
+참고: https://roseline.oopy.io/dev/how-does-dns-work
+
+
+### GSLB란?
+Global Server Load Balancer의 약자로 DNS는 서비스가 불가능한 상황에서도 도메인 질의에 응답을 한다. GSLB는 이런 문제점을 해결해 서비스에 대한 헬스 체크를 수행하여 서비스가 가능한 도메인 질의에 대해서만 응답함. 또한 다른 사이트로 서비스를 분산 시킨다.
+
 ### GSLB 동작 방식에 대해 설명해주세요
 
 1. 사용자 DNS 질의
@@ -13,6 +51,14 @@ NAT 테이블을 통해 공인 IP로 변환해서 외부와 통신할 수 있다
 5. 다시 GSLB에 질의
 6. GSLB에서 헬스 체크 → 결과 응답
 7. GSLB에서 받은 결괏값을 LDNS가 사용자에 최종 응답
+
+### DHCP란?
+Dynamic Host Configuration Protocol의 약자로 호스트의 IP 주소와 각종 TCP/IP 프로토콜의 기본 설정을 자동으로 제공해주는 프로토콜. 
+
+장점: IP 설정이 자동으로 되기 때문에 효율적으로 사용이 가능하고, 사용자의 실수로 인한 설정 정보 오류나 중복 IP 할당과 같은 문제 예방 가능
+
+단점: DHCP 서버에 의존하게 되기 때문에 서버가 다운되면 IP 할당이 제대로 이루어지지 않음
+
 
 ### DHCP 릴레이 과정을 설명해주세요
 
