@@ -12,9 +12,14 @@
 - 4월 3주차
 >[7장 통신을 도와주는 네트워크 주요 기술](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%203%EC%A3%BC%EC%B0%A8/7%EC%9E%A5%20%ED%86%B5%EC%8B%A0%EC%9D%84%20%EB%8F%84%EC%99%80%EC%A3%BC%EB%8A%94%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EC%A3%BC%EC%9A%94%20%EA%B8%B0%EC%88%A0)  
 > 1~6장 복습은 기존 질문에 추가
+
 - 4월 4주차
 >[9장 보안](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%204%EC%A3%BC%EC%B0%A8/9%EC%9E%A5%20%EB%B3%B4%EC%95%88)  
 >[11장 이중화 기술](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%204%EC%A3%BC%EC%B0%A8/11%EC%9E%A5%20%EC%9D%B4%EC%A4%91%ED%99%94%20%EA%B8%B0%EC%88%A0)  
+
+- 4월 5주차
+>[12장 로드 밸런서](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%205%EC%A3%BC%EC%B0%A8/12%EC%9E%A5%20%EB%A1%9C%EB%93%9C%20%EB%B0%B8%EB%9F%B0%EC%84%9C)  
+>[13장 네트워크 디자인](https://github.com/SSAFY7th-Seoul14/CS-study/tree/main/4%EC%9B%94%205%EC%A3%BC%EC%B0%A8/13%EC%9E%A5%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EB%94%94%EC%9E%90%EC%9D%B8)  
 
 ---
 
